@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chat with Data Demo</title>
+  <title>Chat with Data</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -38,16 +38,18 @@
   </style>
 </head>
 <body>
-  <h1>Chat with Data Demo</h1>
+  <h1>Chat with Data</h1>
   <div id="chat-container"></div>
   <input type="text" id="chat-input" placeholder="Type your question here..." />
   <button id="send-button">Send</button>
   
   <script>
+    // Adjust this URL if you change your webhook path in n8n
+    const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/demo';
+
     const chatContainer = document.getElementById('chat-container');
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
-    const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/demo'; // Update if needed
 
     // Append a message to the chat container
     function appendMessage(text, sender) {
@@ -66,6 +68,7 @@
       chatInput.value = '';
 
       try {
+        // Send user question to the webhook
         const response = await fetch(webhookUrl, {
           method: 'POST',
           headers: {
@@ -73,16 +76,20 @@
           },
           body: JSON.stringify({ question: message })
         });
+        
+        // Expect the webhook to respond with JSON like { "answer": "some text" }
         const data = await response.json();
-        // Expect the webhook to return an object with an "answer" property
+        // If no "answer" property, just show the raw data
         appendMessage(data.answer || JSON.stringify(data), 'bot');
       } catch (error) {
         appendMessage('Error: ' + error.message, 'bot');
       }
     }
 
-    // Event listeners for sending messages
+    // Send on button click
     sendButton.addEventListener('click', sendMessage);
+
+    // Send on Enter key
     chatInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         sendMessage();
@@ -91,6 +98,7 @@
   </script>
 </body>
 </html>
+
 
 
 
