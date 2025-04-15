@@ -64,8 +64,8 @@
   <button id="send-button">Send</button>
   
   <script>
-    // ✅ Replace with your actual n8n production webhook URL
-    const webhookUrl = 'const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/chat-with-data';';
+    const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/chat-with-data';
+
     const chatContainer = document.getElementById('chat-container');
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
@@ -90,11 +90,11 @@
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ message }) // 👈 Key matches what your agent expects
+          body: JSON.stringify({ message }) // 👈 what n8n expects
         });
 
         const data = await response.json();
-        const reply = data.reply || data.answer || '🤖 No reply received from agent.';
+        const reply = data.reply || data.answer || '🤖 No reply received.';
         appendMessage(reply, 'bot');
       } catch (error) {
         appendMessage('Error: ' + error.message, 'bot');
@@ -110,3 +110,4 @@
   </script>
 </body>
 </html>
+
