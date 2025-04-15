@@ -7,6 +7,7 @@
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
+      background-color: #f9f9f9;
     }
     #chat-container {
       border: 1px solid #ccc;
@@ -14,26 +15,45 @@
       height: 400px;
       overflow-y: auto;
       margin-bottom: 10px;
+      background-color: #ffffff;
+      border-radius: 8px;
     }
     .message {
       margin: 5px 0;
-      padding: 8px;
-      border-radius: 4px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      max-width: 75%;
+      word-wrap: break-word;
+      display: inline-block;
     }
     .user-message {
-      background-color: #e0f7ff;
+      background-color: #d1ecf1;
       text-align: right;
+      float: right;
+      clear: both;
     }
     .bot-message {
-      background-color: #e0ffe0;
+      background-color: #d4edda;
       text-align: left;
+      float: left;
+      clear: both;
     }
     #chat-input {
       width: calc(100% - 110px);
       padding: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
     }
     #send-button {
-      padding: 10px;
+      padding: 10px 15px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    #send-button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -44,14 +64,13 @@
   <button id="send-button">Send</button>
   
   <script>
-    // Adjust this URL if you change your webhook path in n8n
-    const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/demo';
+    // ✅ Replace with your actual n8n production webhook URL
+    const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/boLVE6D6m5EQmlRb';
 
     const chatContainer = document.getElementById('chat-container');
     const chatInput = document.getElementById('chat-input');
     const sendButton = document.getElementById('send-button');
 
-    // Append a message to the chat container
     function appendMessage(text, sender) {
       const msgDiv = document.createElement('div');
       msgDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
@@ -60,7 +79,6 @@
       chatContainer.scrollTop = chatContainer.scrollHeight;
     }
 
-    // Send a chat message to the webhook
     async function sendMessage() {
       const message = chatInput.value.trim();
       if (!message) return;
@@ -68,28 +86,23 @@
       chatInput.value = '';
 
       try {
-        // Send user question to the webhook
         const response = await fetch(webhookUrl, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ question: message })
+          body: JSON.stringify({ message }) // 👈 Key matches what your agent expects
         });
-        
-        // Expect the webhook to respond with JSON like { "answer": "some text" }
+
         const data = await response.json();
-        // If no "answer" property, just show the raw data
-        appendMessage(data.answer || JSON.stringify(data), 'bot');
+        const reply = data.reply || data.answer || '🤖 No reply received from agent.';
+        appendMessage(reply, 'bot');
       } catch (error) {
         appendMessage('Error: ' + error.message, 'bot');
       }
     }
 
-    // Send on button click
     sendButton.addEventListener('click', sendMessage);
-
-    // Send on Enter key
     chatInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         sendMessage();
@@ -98,7 +111,3 @@
   </script>
 </body>
 </html>
-
-
-
-
