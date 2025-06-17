@@ -2,112 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chat with Data</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-      background-color: #f9f9f9;
-    }
-    #chat-container {
-      border: 1px solid #ccc;
-      padding: 10px;
-      height: 400px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      background-color: #ffffff;
-      border-radius: 8px;
-    }
-    .message {
-      margin: 5px 0;
-      padding: 8px 12px;
-      border-radius: 20px;
-      max-width: 75%;
-      word-wrap: break-word;
-      display: inline-block;
-    }
-    .user-message {
-      background-color: #d1ecf1;
-      text-align: right;
-      float: right;
-      clear: both;
-    }
-    .bot-message {
-      background-color: #d4edda;
-      text-align: left;
-      float: left;
-      clear: both;
-    }
-    #chat-input {
-      width: calc(100% - 110px);
-      padding: 10px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-    }
-    #send-button {
-      padding: 10px 15px;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    #send-button:hover {
-      background-color: #0056b3;
-    }
-  </style>
+  <title>AI Access Checker</title>
 </head>
 <body>
-  <h1>Chat with Data</h1>
-  <div id="chat-container"></div>
-  <input type="text" id="chat-input" placeholder="Type your question here..." />
-  <button id="send-button">Send</button>
-  
-  <script>
-    const webhookUrl = 'https://imalick.app.n8n.cloud/webhook/chat-with-data';
+  <h2>Check AI Tool Accessibility in Your Country</h2>
+  <form action="https://imalick.app.n8n.cloud/webhook/check-access" method="POST">
+    <label for="country">Country Name:</label><br>
+    <input type="text" id="country" name="country" required><br><br>
 
-    const chatContainer = document.getElementById('chat-container');
-    const chatInput = document.getElementById('chat-input');
-    const sendButton = document.getElementById('send-button');
+    <label for="countryCode">Country Code (ISO Alpha-3 e.g. KEN):</label><br>
+    <input type="text" id="countryCode" name="countryCode" required><br><br>
 
-    function appendMessage(text, sender) {
-      const msgDiv = document.createElement('div');
-      msgDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
-      msgDiv.textContent = text;
-      chatContainer.appendChild(msgDiv);
-      chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+    <label for="tool">Tool to Evaluate (e.g. ChatGPT, Bard):</label><br>
+    <input type="text" id="tool" name="tool" required><br><br>
 
-    async function sendMessage() {
-      const message = chatInput.value.trim();
-      if (!message) return;
-      appendMessage(message, 'user');
-      chatInput.value = '';
+    <button type="submit">Submit</button>
+  </form>
 
-      try {
-        const response = await fetch(webhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ message }) // 👈 what n8n expects
-        });
-
-        const data = await response.json();
-        const reply = data.reply || data.answer || '🤖 No reply received.';
-        appendMessage(reply, 'bot');
-      } catch (error) {
-        appendMessage('Error: ' + error.message, 'bot');
-      }
-    }
-
-    sendButton.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-  </script>
+  <p>We will email or log the evaluation based on internet accessibility and tool availability.</p>
 </body>
 </html>
-
