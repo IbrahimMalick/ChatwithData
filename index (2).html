@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Immigration Lawyers System - AI-Powered Practice Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <style>
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            border-color: #cbd5e0;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3730a3 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 119, 198, 0.2) 0%, transparent 50%);
+            opacity: 0.8;
+        }
+
+        .nav-tab {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .action-card {
+            background: linear-gradient(135deg, #fef3e2 0%, #fed7aa 100%);
+            border: 1px solid #fdba74;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .action-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(251, 146, 60, 0.25);
+            border-color: #fb923c;
+        }
+
+        .operations-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .operations-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.4);
+        }
+
+        .badge {
+            animation: pulse 2s infinite;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.9;
+                transform: scale(1.05);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <!-- Header -->
+        <header class="bg-white shadow-lg border-b border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-20">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg">
+                            <i data-lucide="scale" class="w-7 h-7 text-white"></i>
+                        </div>
+                        <div>
+                            <h1 class="text-2xl font-bold text-gray-900">Immigration Lawyers System</h1>
+                            <p class="text-sm text-gray-600 font-medium">AI-Powered Practice Management</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-sm font-semibold">
+                            System Active
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <div class="bg-white border-b border-gray-200 shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex space-x-2 py-4 overflow-x-auto">
+                    <button class="nav-tab active flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-lg transform scale-105">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                        <span>Dashboard</span>
+                        <span class="bg-emerald-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge">1</span>
+                    </button>
+                    <button class="nav-tab flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:shadow-md">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                        <span>Automation Hub</span>
+                        <span class="bg-blue-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge">15</span>
+                    </button>
+                    <button class="nav-tab flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:shadow-md">
+                        <i data-lucide="zap" class="w-5 h-5"></i>
+                        <span>AI Intelligence</span>
+                        <span class="bg-orange-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge">3</span>
+                    </button>
+                    <button class="nav-tab flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:shadow-md">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                        <span>Client Portal</span>
+                        <span class="bg-purple-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge">89</span>
+                    </button>
+                    <button class="nav-tab flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:shadow-md">
+                        <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                        <span>Analytics</span>
+                        <span class="bg-teal-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge">12</span>
+                    </button>
+                    <button class="nav-tab flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:shadow-md">
+                        <i data-lucide="globe" class="w-5 h-5"></i>
+                        <span>Integrations</span>
+                        <span class="bg-pink-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge">7</span>
+                    </button>
+                    <button class="nav-tab flex items-center space-x-3 px-6 py-3 rounded-xl text-sm font-semibold whitespace-nowrap text-gray-600 hover:text-gray-900 hover:bg-gray-100 hover:shadow-md">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                        <span>Setup</span>
+                        <span class="bg-amber-500 text-white text-xs px-2 py-1 rounded-full font-bold shadow-sm badge"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Hero Section -->
+            <div class="hero-section rounded-3xl p-8 mb-8 text-white relative overflow-hidden shadow-2xl">
+                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+                <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-l from-blue-500/10 to-transparent rounded-full transform translate-x-32 -translate-y-32"></div>
+                <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="inline-flex items-center bg-blue-500/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6 border border-blue-400/30">
+                            <i data-lucide="zap" class="w-4 h-4 mr-2 text-yellow-400"></i>
+                            AI-Powered Immigration Law
+                        </div>
+                        <h2 class="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                            AUTOMATE, OPTIMIZE AND
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400">
+                                SCALE
+                            </span>
+                            YOUR PRACTICE
+                        </h2>
+                        <p class="text-xl text-blue-100 mb-8 leading-relaxed">
+                            Meet your dedicated AI-powered automation system that works 24/7 to streamline operations and maximize client satisfaction.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-emerald-500 p-2 rounded-lg">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <span class="text-emerald-300 font-semibold text-lg">300% ROI within first year</span>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <div class="bg-blue-500 p-2 rounded-lg">
+                                    <i data-lucide="settings" class="w-5 h-5 text-white"></i>
+                                </div>
+                                <span class="text-blue-300 font-semibold text-lg">15+ automation workflows active</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                            <button class="cta-button text-black px-8 py-4 rounded-xl font-bold transition-all duration-200 flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transform hover:scale-105">
+                                <span>View Demo</span>
+                                <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                            </button>
+                            <button class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900 px-8 py-4 rounded-xl font-bold transition-all duration-200 backdrop-blur-sm">
+                                Start Free Trial
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div class="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-sm border border-white/20 shadow-2xl float">
+                            <div class="flex items-center space-x-4 mb-6">
+                                <div class="w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
+                                    <i data-lucide="users" class="w-7 h-7 text-white"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-xl">AI Attorney Matcher</h3>
+                                    <p class="text-blue-200 text-sm">Intelligent Case Assignment</p>
+                                </div>
+                            </div>
+                            <p class="text-blue-100 text-sm mb-6 leading-relaxed">
+                                Automatically assigns cases to the best-suited attorney based on expertise, availability, and success rates.
+                            </p>
+                            <button class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-xl text-sm font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg">
+                                <i data-lucide="message-square" class="w-4 h-4"></i>
+                                <span>See Assignment Logic</span>
+                                <span class="bg-blue-800 text-white text-xs px-2 py-1 rounded-full">10</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metrics Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 fade-in">
+                <div class="metric-card bg-blue-50 rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-600 p-3 rounded-xl shadow-lg">
+                            <i data-lucide="file-text" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex items-center space-x-1 text-emerald-600">
+                            <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                            <span class="text-xs font-semibold">+1%</span>
+                        </div>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-semibold mb-2">Active Cases</h3>
+                    <p class="text-3xl font-bold text-blue-600 mb-2">156</p>
+                    <p class="text-sm text-gray-500 font-medium">+23 this month</p>
+                </div>
+
+                <div class="metric-card bg-emerald-50 rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-emerald-500 to-emerald-600 p-3 rounded-xl shadow-lg">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex items-center space-x-1 text-emerald-600">
+                            <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                            <span class="text-xs font-semibold">+2%</span>
+                        </div>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-semibold mb-2">Revenue Growth</h3>
+                    <p class="text-3xl font-bold text-emerald-600 mb-2">$125.8K</p>
+                    <p class="text-sm text-gray-500 font-medium">+45% from last quarter</p>
+                </div>
+
+                <div class="metric-card bg-purple-50 rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-600 p-3 rounded-xl shadow-lg">
+                            <i data-lucide="star" class="w-6 h-6 text-white"></i>
+                        </div>
+                        <div class="flex items-center space-x-1 text-emerald-600">
+                            <i data-lucide="arrow-up" class="w-4 h-4"></i>
+                            <span class="text-xs font-semibold">+3%</span>
+                        </div>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-semibold mb-2">Client Satisfaction</h3>
+                    <p class="text-3xl font-bold text-purple-600 mb-2">98.5%</p>
+                    <p class="text-sm text-gray-500 font-medium">+12% improvement</p>
+                </div>
+
+                <div class="metric-card bg-amber-50 rounded-2xl p-6 shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-gradient-to-r from-amber-500 to-amber-600 p-3 rounded-xl shadow-lg">
+                            <i data-lucide="clock" class="w-6 h-6 text-white"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-gray-600 text-sm font-semibold mb-2">Time Saved</h3>
+                    <p class="text-3xl font-bold text-amber-600 mb-2">240 hrs</p>
+                    <p class="text-sm text-gray-500 font-medium">This month</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Recommended Actions -->
+                <div class="lg:col-span-2">
+                    <div class="bg-white rounded-2xl shadow-xl border border-gray-200">
+                        <div class="p-6 border-b border-gray-100">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xl font-bold text-gray-900">Recommended Actions</h3>
+                                <span class="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                                    AI Suggested
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-6 space-y-6">
+                            <div class="action-card rounded-xl p-6 hover:shadow-lg transition-all duration-200">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-white p-3 rounded-xl shadow-md">
+                                            <i data-lucide="gavel" class="w-6 h-6 text-orange-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h4 class="font-bold text-gray-900 text-lg">Review Urgent Cases</h4>
+                                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                                    High Impact
+                                                </span>
+                                            </div>
+                                            <p class="text-gray-600 text-sm mb-3 leading-relaxed">AI detected 3 cases requiring immediate attention for upcoming deadlines.</p>
+                                            <p class="text-gray-500 text-xs font-semibold">Estimated time: 5 minutes</p>
+                                        </div>
+                                    </div>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+                                        <span>Take Action</span>
+                                        <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full font-bold">3</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="action-card rounded-xl p-6 hover:shadow-lg transition-all duration-200">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-white p-3 rounded-xl shadow-md">
+                                            <i data-lucide="file-text" class="w-6 h-6 text-orange-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h4 class="font-bold text-gray-900 text-lg">Process Document Queue</h4>
+                                                <span class="bg-red-100 text-red-700 px-3 py-1 rounded-full text-xs font-bold">
+                                                    High Impact
+                                                </span>
+                                            </div>
+                                            <p class="text-gray-600 text-sm mb-3 leading-relaxed">Sophie has prepared 12 documents for your review and approval.</p>
+                                            <p class="text-gray-500 text-xs font-semibold">Estimated time: 15 minutes</p>
+                                        </div>
+                                    </div>
+                                    <button class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+                                        <span>Take Action</span>
+                                        <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full font-bold">12</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="action-card rounded-xl p-6 hover:shadow-lg transition-all duration-200">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-start space-x-4">
+                                        <div class="bg-white p-3 rounded-xl shadow-md">
+                                            <i data-lucide="message-square" class="w-6 h-6 text-orange-600"></i>
+                                        </div>
+                                        <div class="flex-1">
+                                            <div class="flex items-center space-x-3 mb-2">
+                                                <h4 class="font-bold text-gray-900 text-lg">Client Follow-up Campaign</h4>
+                                                <span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold">
+                                                    Medium Impact
+                                                </span>
+                                            </div>
+                                            <p class="text-gray-600 text-sm mb-3 leading-relaxed">Emma has prepared this week's client engagement strategy for approval.</p>
+                                            <p class="text-gray-500 text-xs font-semibold">Estimated time: 10 minutes</p>
+                                        </div>
+                                    </div>
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl text-sm font-bold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+                                        <span>Take Action</span>
+                                        <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full font-bold">8</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- System Health -->
+                <div class="bg-white rounded-2xl shadow-xl border border-gray-200">
+                    <div class="p-6 border-b border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900">System Health Score</h3>
+                    </div>
+                    <div class="p-6 space-y-6">
+                        <div class="bg-gradient-to-r from-emerald-50 to-green-50 p-4 rounded-xl border border-emerald-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 text-sm font-semibold">Automation Efficiency</span>
+                                <div class="flex items-center space-x-1 text-emerald-600">
+                                    <i data-lucide="trending-up" class="w-4 h-4"></i>
+                                    <span class="text-xs font-bold">+5%</span>
+                                </div>
+                            </div>
+                            <p class="text-3xl font-bold text-emerald-600">95%</p>
+                            <p class="text-sm text-gray-600 font-medium">Success rate across all workflows</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-xl border border-blue-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 text-sm font-semibold">Client Response Time</span>
+                                <div class="flex items-center space-x-1 text-blue-600">
+                                    <i data-lucide="clock" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <p class="text-3xl font-bold text-blue-600">2.3 min</p>
+                            <p class="text-sm text-gray-600 font-medium">Average response time</p>
+                        </div>
+                        
+                        <div class="bg-gradient-to-r from-purple-50 to-pink-50 p-4 rounded-xl border border-purple-200">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-gray-700 text-sm font-semibold">Revenue Opportunity</span>
+                                <div class="flex items-center space-x-1 text-purple-600">
+                                    <i data-lucide="target" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <p class="text-3xl font-bold text-purple-600">+$85,000</p>
+                            <p class="text-sm text-gray-600 font-medium">Potential monthly increase</p>
+                        </div>
+                        
+                        <button class="w-full bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white py-4 px-4 rounded-xl font-bold transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl transform hover:scale-105">
+                            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
+                            <span>View Full Report</span>
+                            <span class="bg-white/20 text-white text-xs px-2 py-1 rounded-full font-bold">14</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Operations Hub -->
+            <div class="mt-12">
+                <h3 class="text-2xl font-bold text-gray-900 mb-8">Practice Operations Hub</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="operations-card bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="bg-white p-4 rounded-xl shadow-lg text-teal-600">
+                                <i data-lucide="users" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">Client Intake & Routing</h4>
+                                <p class="text-gray-600 text-sm font-medium">Manage new clients and case assignments</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-gray-900">89</p>
+                                <p class="text-xs text-gray-600 font-semibold">Total</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-gray-900">12</p>
+                                <p class="text-xs text-gray-600 font-semibold">Active</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-emerald-600">97%</p>
+                                <p class="text-xs text-gray-600 font-semibold">Success Rate</p>
+                            </div>
+                        </div>
+                        <button class="w-full bg-white hover:bg-gray-50 text-gray-900 py-3 px-4 rounded-xl font-bold transition-all duration-200 flex items-center justify-center space-x-2 border border-gray-200 shadow-md hover:shadow-lg">
+                            <span>View Details</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="operations-card bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="bg-white p-4 rounded-xl shadow-lg text-blue-600">
+                                <i data-lucide="file-text" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">Document Management</h4>
+                                <p class="text-gray-600 text-sm font-medium">Track documents and compliance</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-gray-900">1,247</p>
+                                <p class="text-xs text-gray-600 font-semibold">Total</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-gray-900">23</p>
+                                <p class="text-xs text-gray-600 font-semibold">Pending</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-emerald-600">89%</p>
+                                <p class="text-xs text-gray-600 font-semibold">Quality Score</p>
+                            </div>
+                        </div>
+                        <button class="w-full bg-white hover:bg-gray-50 text-gray-900 py-3 px-4 rounded-xl font-bold transition-all duration-200 flex items-center justify-center space-x-2 border border-gray-200 shadow-md hover:shadow-lg">
+                            <span>View Details</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="operations-card bg-gradient-to-br from-amber-50 to-amber-100 rounded-2xl p-8 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-200">
+                        <div class="flex items-center space-x-4 mb-6">
+                            <div class="bg-white p-4 rounded-xl shadow-lg text-amber-600">
+                                <i data-lucide="message-square" class="w-8 h-8"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">Communication Hub</h4>
+                                <p class="text-gray-600 text-sm font-medium">Multi-channel client engagement</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 mb-6">
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-gray-900">2,156</p>
+                                <p class="text-xs text-gray-600 font-semibold">Messages</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-gray-900">15</p>
+                                <p class="text-xs text-gray-600 font-semibold">Campaigns</p>
+                            </div>
+                            <div class="text-center">
+                                <p class="text-2xl font-bold text-emerald-600">94%</p>
+                                <p class="text-xs text-gray-600 font-semibold">Delivery Rate</p>
+                            </div>
+                        </div>
+                        <button class="w-full bg-white hover:bg-gray-50 text-gray-900 py-3 px-4 rounded-xl font-bold transition-all duration-200 flex items-center justify-center space-x-2 border border-gray-200 shadow-md hover:shadow-lg">
+                            <span>View Details</span>
+                            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Add interactive functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab switching functionality
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabs.forEach(t => t.classList.remove('active', 'bg-gradient-to-r', 'from-blue-500', 'to-indigo-500', 'text-white', 'shadow-lg', 'transform', 'scale-105'));
+                    tabs.forEach(t => t.classList.add('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-100', 'hover:shadow-md'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.remove('text-gray-600', 'hover:text-gray-900', 'hover:bg-gray-100', 'hover:shadow-md');
+                    this.classList.add('active', 'bg-gradient-to-r', 'from-blue-500', 'to-indigo-500', 'text-white', 'shadow-lg', 'transform', 'scale-105');
+                });
+            });
+
+            // Add smooth scrolling for better UX
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    // Add click animation
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Add fade-in animation to elements as they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all metric cards and operation cards
+            document.querySelectorAll('.metric-card, .operations-card, .action-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
+
